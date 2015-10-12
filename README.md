@@ -12,13 +12,20 @@ SYNOPSIS
     my $factory = File::Temp::Factory.new;
 
     # Usage1
+    $factory.scope: {
+        my ($file, $fh) = $factory.tempfile;
+        my $tempdir = $factory.tempdir;
+
+    }; # automatically cleanup tempfiles and tempdirs
+
+    # Usage2
     {
         LEAVE { $factory.cleanup }
         my ($file, $fh) = $factory.tempfile;
         my $tempdir = $factory.temdir;
     }
 
-    # Usage2
+    # Usage3
     $factory.tempfile: -> $file, $fh {
         # do something with $file, $fh
     };
