@@ -1,0 +1,16 @@
+{
+  "name" : "File::Temp::Factory",
+  "source-url" : "git://github.com/shoichikaji/File-Temp-Factory.git",
+  "perl" : "v6",
+  "build-depends" : [ ],
+  "provides" : {
+    "File::Temp::Factory" : "lib/File/Temp/Factory.pm6"
+  },
+  "depends" : [ ],
+  "description" : "manage tempfile/tempdir",
+  "test-depends" : [ ],
+  "version" : "*",
+  "authors" : [
+    "Shoichi Kaji"
+  ]
+}
