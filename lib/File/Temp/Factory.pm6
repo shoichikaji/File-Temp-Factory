@@ -10,34 +10,27 @@ File::Temp::Factory - manage tempfile/tempdir
 
 =head1 SYNOPSIS
 
-  use File::Temp::Factory;
-  my $factory = File::Temp::Factory.new;
+    class YourClass {
+        use File::Temp::Factory;
+        has $!factory = File::Temp::Factory.new;
 
-  # Usage1
-  $factory.scope: {
-      my ($file, $fh) = $factory.tempfile;
-      my $tempdir = $factory.tempdir;
+        method run() {
+            LEAVE { $!factory.cleanup }
+            my $file = self.foo();
+            my $dir  = self.bar();
+        }
 
-  }; # automatically cleanup tempfiles and tempdirs
-
-  # Usage2
-  {
-      LEAVE { $factory.cleanup }
-      my ($file, $fh) = $factory.tempfile;
-      my $tempdir = $factory.temdir;
-  }
-
-  # Usage3
-  $factory.tempfile: -> $file, $fh {
-      # do something with $file, $fh
-  };
-  $factory.tempdir: -> $tempdir {
-      # do something with $tempdir;
-  };
-  $factory.tempd: -> $tempdir {
-      # pwd = $tempdir
-      # do something with $tempdir
-  };
+        method foo() {
+            my ($file, $fh) = $!factory.tempfile;
+            # do something
+            return $file;
+        }
+        method bar() {
+            my $dir = $!factory.tempdir;
+            # do something
+            return $dir;
+        }
+    }
 
 =head1 DESCRIPTION
 
